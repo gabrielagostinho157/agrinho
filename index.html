@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrinho 2026 | Agro Forte, Futuro Sustentável</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-leaf"></i> Agrinho<span>2026</span>
+        </div>
+        <nav>
+            <a href="#inicio">Início</a>
+            <a href="#pilares">Pilares</a>
+            <a href="#simulador">Equilíbrio</a>
+            <a href="#quiz">Quiz Sustentável</a>
+        </nav>
+    </header>
+
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>Agro Forte, Futuro Sustentável</h1>
+            <p>O equilíbrio perfeito entre a alta produtividade no campo e a preservação do meio ambiente.</p>
+            <a href="#simulador" class="btn-principal">Explorar o Equilíbrio</a>
+        </div>
+    </section>
+
+    <section id="pilares" class="pilares">
+        <h2 class="titulo-secao">Tecnologia a Serviço da Natureza</h2>
+        <div class="cards-container">
+            <div class="card">
+                <i class="fa-solid fa-droplet icon-card"></i>
+                <h3>Manejo de Água</h3>
+                <p>Irrigação de precisão e gotejamento que reduzem o desperdício, preservando os recursos hídricos.</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-seedling icon-card"></i>
+                <h3>Plantio Direto</h3>
+                <p>Proteção do solo contra erosão, mantendo os nutrientes e aumentando o sequestro de carbono.</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-solar-panel icon-card"></i>
+                <h3>Energia Limpa</h3>
+                <p>Fazendas movidas a energia solar e biomassa, reduzindo a pegada de carbono do agro brasileiro.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="simulador" class="simulador-section">
+        <h2 class="titulo-secao">Painel do Produtor Consciente</h2>
+        <p class="sub-secao">Ative as práticas sustentáveis e veja o "Termômetro do Futuro" alcançar o equilíbrio perfeito.</p>
+        
+        <div class="simulador-container">
+            <div class="controles">
+                <h3>Práticas Pró-Ambiente</h3>
+                <label class="switch-container">
+                    <input type="checkbox" id="btn-reflorestamento" class="pratica-check" data-peso="25">
+                    <span class="slider"></span>
+                    Reflorestamento de APPs
+                </label>
+                <label class="switch-container">
+                    <input type="checkbox" id="btn-biologicos" class="pratica-check" data-peso="25">
+                    <span class="slider"></span>
+                    Uso de Defensivos Biológicos
+                </label>
+                <label class="switch-container">
+                    <input type="checkbox" id="btn-rotacao" class="pratica-check" data-peso="25">
+                    <span class="slider"></span>
+                    Rotação de Culturas
+                </label>
+                <label class="switch-container">
+                    <input type="checkbox" id="btn-tecnologia" class="pratica-check" data-peso="25">
+                    <span class="slider"></span>
+                    Drones e Agricultura de Precisão
+                </label>
+            </div>
+
+            <div class="display-resultado">
+                <h3>Sustentabilidade da Fazenda</h3>
+                <div class="barra-progresso-recipiente">
+                    <div id="barra-progresso" class="barra-progresso">0%</div>
+                </div>
+                <p id="mensagem-status">Sua fazenda precisa adotar práticas sustentáveis!</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz" class="quiz-section">
+        <h2 class="titulo-secao">Desafio Agrinho</h2>
+        <div class="quiz-container">
+            <div id="questao-container">
+                <p id="pergunta">Carregando pergunta...</p>
+                <div id="alternativas" class="alternativas-grid">
+                    </div>
+            </div>
+            <div id="resultado-quiz" class="escondido">
+                <h3>Parabéns por concluir!</h3>
+                <p id="feedback-quiz"></p>
+                <button onclick="reiniciarQuiz()" class="btn-principal">Jogar Novamente</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Projeto Escolar Agrinho. Desenvolvido para um futuro mais verde.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

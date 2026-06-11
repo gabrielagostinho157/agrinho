@@ -1,70 +1,99 @@
-// 1. Alternador de Modo Escuro / Modo Claro
-const themeToggle = document.getElementById('theme-toggle');
-themeToggle.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    if (currentTheme === 'dark') {
-        document.documentElement.removeAttribute('data-theme');
-    } else {
-        document.documentElement.setAttribute('data-theme', 'dark');
+// Banco de dados de perguntas do Quiz Agrinho 2026
+const perguntasQuiz = [
+    {
+        pergunta: "Qual é o principal objetivo do equilíbrio entre produção e meio ambiente?",
+        opcoes: [
+            "Produzir o máximo possível sem se preocupar com o amanhã.",
+            "Garantir alimentos para a população preservando os recursos naturais para o futuro.",
+            "Deixar de plantar para proteger as florestas.",
+            "Utilizar apenas processos manuais e antigos na agricultura."
+        ],
+        correta: 1 // Índice da resposta correta (segunda opção)
+    },
+    {
+        pergunta: "Qual tecnologia ajuda a economizar água na agricultura sustentável?",
+        opcoes: [
+            "Irrigação por inundação.",
+            "Uso de tratores movidos a diesel.",
+            "Sistemas de irrigação por gotejamento automatizado.",
+            "Desvio de cursos de rios naturais."
+        ],
+        correta: 2 // Terceira opção
+    },
+    {
+        pergunta: "O que significa o termo 'Agro Forte' no contexto da sustentabilidade?",
+        opcoes: [
+            "Um agro que usa tecnologia avançada e práticas verdes para resistir a crises ambientais.",
+            "Um agro que desmata para expandir território rapidamente.",
+            "O uso excessivo de produtos químicos pesados.",
+            "A dependência exclusiva de energias não renováveis."
+        ],
+        correta: 0 // Primeira opção
     }
-});
+];
 
-// 2. Lógica da Calculadora de Impacto Sustentável
-function calcularImpacto() {
-    const agrofloresta = document.getElementById('agrofloresta').checked;
-    const gotejamento = document.getElementById('gotejamento').checked;
-    const solar = document.getElementById('solar').checked;
-    
-    let pontosSustentaveis = 0;
-    let mensagem = "";
+let indicePerguntaAtual = 0;
+let pontuacao = 0;
 
-    if (agrofloresta) pontosSustentaveis += 1;
-    if (gotejamento) pontosSustentaveis += 1;
-    if (solar) pontosSustentaveis += 1;
+// Elementos do HTML
+const textoPergunta = document.getElementById("texto-pergunta");
+const containerOpcoes = document.getElementById("opcoes-respostas");
+const boxPergunta = document.getElementById("pergunta-box");
+const boxResultado = document.getElementById("resultado-box");
+const mensagemResultado = document.getElementById("mensagem-resultado");
 
-    const resultadoDiv = document.getElementById('resultado-calculo');
-    resultadoDiv.style.display = 'block';
-
-    // Condicionais simples baseadas nas escolhas do usuário
-    if (pontosSustentaveis === 3) {
-        resultadoDiv.style.backgroundColor = '#d4edda';
-        resultadoDiv.style.color = '#155724';
-        mensagem = "🏆 Excelente! Sua fazenda atingiu o nível máximo de sustentabilidade. Produção forte e planeta protegido!";
-    } else if (pontosSustentaveis > 0) {
-        resultadoDiv.style.backgroundColor = '#fff3cd';
-        resultadoDiv.style.color = '#856404';
-        mensagem = "🌱 Bom começo! Cada prática adotada ajuda o meio ambiente. Que tal tentar implementar mais uma?";
+// Função para iniciar ou atualizar o Quiz
+function carregarPergunta() {
+    if (indicePerguntaAtual < perguntasQuiz.length) {
+        // Mostra a pergunta atual
+        const dadosPergunta = perguntasQuiz[indicePerguntaAtual];
+        textoPergunta.innerText = dadosPergunta.pergunta;
+        
+        // Limpa opções antigas
+        containerOpcoes.innerHTML = "";
+        
+        // Cria os botões para as novas opções
+        dadosPergunta.opcoes.forEach((opcao, index) => {
+            const botao = document.createElement("button");
+            botao.innerText = opcao;
+            botao.classList.add("btn-opcao");
+            botao.addEventListener("click", () => verificarResposta(index));
+            containerOpcoes.appendChild(botao);
+        });
     } else {
-        resultadoDiv.style.backgroundColor = '#f8d7da';
-        resultadoDiv.style.color = '#721c24';
-        mensagem = "⚠️ Alerta! Nenhuma prática sustentável foi selecionada. Sem o equilíbrio, o futuro da produção pode ser ameaçado.";
+        // Fim do quiz, mostra resultados
+        mostrarResultado();
     }
-
-    resultadoDiv.innerText = mensagem;
 }
 
-// 3. Lógica de Verificação do Quiz
-function verificarQuiz() {
-    // Busca o radio button selecionado que tem o nome 'q1'
-    const respostaSelecionada = document.querySelector('input[name="q1"]:checked');
-    const resultadoQuizDiv = document.getElementById('resultado-quiz');
+// Função para checar se a resposta clicada está certa
+function verificarResposta(indiceSelecionado) {
+    const respostaCorreta = perguntasQuiz[indicePerguntaAtual].correta;
     
-    resultadoQuizDiv.style.display = 'block';
-
-    if (!respostaSelecionada) {
-        resultadoQuizDiv.style.backgroundColor = '#fff3cd';
-        resultadoQuizDiv.style.color = '#856404';
-        resultadoQuizDiv.innerText = "Por favor, selecione uma alternativa antes de verificar!";
-        return;
+    if (indiceSelecionado === respostaCorreta) {
+        pontuacao++;
     }
-
-    if (respostaSelecionada.value === 'certo') {
-        resultadoQuizDiv.style.backgroundColor = '#d4edda';
-        resultadoQuizDiv.style.color = '#155724';
-        resultadoQuizDiv.innerText = "🎉 Resposta Correta! A rotação de culturas e o plantio direto protegem a estrutura do solo e evitam o desgaste da terra.";
-    } else {
-        resultadoQuizDiv.style.backgroundColor = '#f8d7da';
-        resultadoQuizDiv.style.color = '#721c24';
-        resultadoQuizDiv.innerText = "❌ Tente novamente! Essa prática prejudica o meio ambiente e reduz a força da produção a longo prazo.";
-    }
+    
+    // Avança para a próxima pergunta
+    indicePerguntaAtual++;
+    carregarPergunta();
 }
+
+// Exibe a tela final com a pontuação
+function mostrarResultado() {
+    boxPergunta.classList.add("escondido");
+    boxResultado.classList.remove("escondido");
+    mensagemResultado.innerText = `Você acertou ${pontuacao} de ${perguntasQuiz.length} perguntas!`;
+}
+
+// Reseta o jogo
+function reiniciarQuiz() {
+    indicePerguntaAtual = 0;
+    pontuacao = 0;
+    boxResultado.classList.add("escondido");
+    boxPergunta.classList.remove("escondido");
+    carregarPergunta();
+}
+
+// Inicializa o quiz assim que a página carrega
+window.onload = carregarPergunta;
